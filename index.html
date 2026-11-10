@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday Tiws</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #ffd6e7,
+    #ffb6d5,
+    #f783b8,
+    #ffd9e8
+  );
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.float {
+  position: fixed;
+  bottom: -30px;
+  animation: floatUp 7s linear forwards;
+  opacity: 0.8;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255,255,255,0.7);
+  max-width: 500px;
+  width: 100%;
+  padding: 25px;
+  border-radius: 30px;
+  box-shadow: 0 15px 40px rgba(173,35,96,0.25);
+  text-align: center;
+  animation: appear 1s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+h1 {
+  color: #9e1458;
+  font-size: 32px;
+  margin: 10px 0 20px;
+  text-shadow: 0 2px 8px rgba(255,255,255,0.8);
+}
+
+.heart {
+  font-size: 40px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.video-wrapper {
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 10px 25px rgba(158,20,88,0.25);
+  background: #000;
+}
+
+video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+.message {
+  color: #9e1458;
+  font-size: 16px;
+  margin-top: 18px;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<script>
+const icons = ["💕", "✨", "💗", "🎀", "♡"];
+
+function createFloat() {
+  const el = document.createElement("div");
+
+  el.className = "float";
+  el.textContent =
+    icons[Math.floor(Math.random() * icons.length)];
+
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = (14 + Math.random() * 26) + "px";
+  el.style.animationDuration = (5 + Math.random() * 4) + "s";
+
+  document.body.appendChild(el);
+
+  setTimeout(() => el.remove(), 9000);
+}
+
+setInterval(createFloat, 700);
+</script>
+
+<div class="container">
+  <div class="card">
+
+    <div class="heart">💕</div>
+
+    <h1>Happy Birthday Tiws 🎂</h1>
+
+    <div class="video-wrapper">
+      <video id="birthdayVideo"
+             controls
+             playsinline
+             preload="auto">
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
+
+    <div class="message">
+      Sending you lots of love on your special day! 💗
+    </div>
+
+  </div>
+</div>
+
+<script>
+const video = document.getElementById("birthdayVideo");
+
+const videos = [
+  "video1.mp4",
+  "video2.mp4"
+];
+
+let currentVideo = 0;
+
+video.addEventListener("ended", function() {
+  currentVideo++;
+
+  if (currentVideo < videos.length) {
+    video.src = videos[currentVideo];
+    video.load();
+
+    video.play().catch(() => {
+      console.log("Tap play to continue the next video.");
+    });
+  }
+});
+</script>
+
+</body>
+</html>
